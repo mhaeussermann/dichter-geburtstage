@@ -23,20 +23,23 @@ for (let i = 0; i < heroes.length; i++) {
     const myPara1 = document.createElement('p');
     const myPara2 = document.createElement('p');
     const myPara3 = document.createElement('p');
+    const myPara4 = document.createElement('p');
 
     myH2.textContent = heroes[i]['subjLabel'].value;
     if (heroes[i]['img']) {
         myImg.src = heroes[i]['img'].value;
     }
-    myPara1.textContent = 'Birthday: ' + heroes[i]['birth'].value;
+    myPara1.textContent = 'Birthday: ' + moment(heroes[i]['birth'].value).format('Do MMMM YYYY');
     myPara2.textContent = 'Birthplace: ' + heroes[i]['placeLabel'].value;
-    myPara3.textContent = 'Deathday: ' + heroes[i]['death'].value;
+    myPara3.textContent = 'Deathday: ' + moment(heroes[i]['death'].value).format('Do MMMM YYYY');
+    myPara4.textContent = 'Time since Birthday: ' + moment(heroes[i]['birth'].value).from();
 
     myArticle.appendChild(myH2);
     myArticle.appendChild(myImg);
     myArticle.appendChild(myPara1);
     myArticle.appendChild(myPara2);
     myArticle.appendChild(myPara3);
+    myArticle.appendChild(myPara4);
 
     section.appendChild(myArticle);
   }
