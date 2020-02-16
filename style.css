@@ -1,14 +1,22 @@
   /* header styles */
   
+ body {
+   background: #E3E3D8;
+ }
+
   h1 {
     font-size: 4rem;
+    margin-bottom: 4rem;
     text-align: center;
-    color: grey;
   }
   
   /* section styles */
   p, h2 {
     text-align: center;
+  }
+
+  p {
+    font-size: 16px;
   }
 
   h2 {
@@ -17,15 +25,21 @@
   }
 
   img {
-    width: 50%;
-    height: auto;
+    width: auto;
+    height: 200px;
     margin-left: auto;
     margin-right: auto;
     display: block;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+    padding-bottom: 2rem;
   }
-  
+
   .col-md-6 {
-    margin-bottom: 20px;
+    background: white;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0;
+    transform: scale(0.95);
+    transition: box-shadow 0.5s, transform 0.5s;
   }
