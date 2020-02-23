@@ -43,3 +43,9 @@
     transform: scale(0.95);
     transition: box-shadow 0.5s, transform 0.5s;
   }
+
+  footer {
+    padding: 1em 0 1em 0;
+    font-size: smaller;
+    text-align: center;
+  }
