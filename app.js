@@ -10,41 +10,52 @@ var datasource = 'https://query.wikidata.org/sparql?query=SELECT%20%3Fimg%20%3Fs
 
 // JSON request
 $.getJSON(datasource, function(birthdayPoets){ // Note the data variable!
-  showPoets(birthdayPoets);
+    showPoets(birthdayPoets);
 });
 
 function showPoets(jsonObj) {
-    const poets = jsonObj['results']['bindings'];
+  const poets = jsonObj['results']['bindings'];
+  console.log(poets.length);
+  if (poets.length > 0) {
+    for (let i = 0; i < poets.length; i++) {
+      const myPoet = document.createElement('div');
+      myPoet.className = 'col-md-6';
+      const poetName = document.createElement('h2');
+      const poetImg = document.createElement('img');
+      const poetBirth = document.createElement('p');
+      const poetPlace = document.createElement('p');
+      const poetDeath = document.createElement('p');
 
-for (let i = 0; i < poets.length; i++) {
-    const myPoet = document.createElement('div');
-    myPoet.className = "col-md-6";
-    const poetName = document.createElement('h2');
-    const poetImg = document.createElement('img');
-    const poetBirth = document.createElement('p');
-    const poetPlace = document.createElement('p');
-    const poetDeath = document.createElement('p');
+      poetName.textContent = poets[i]['subjLabel'].value;
+      
+      if (poets[i]['img']) {
+        poetImg.src = poets[i]['img'].value;
+      }
+      else {
+        poetImg.src = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
+      }
+      poetBirth.textContent = 'Geburtstag: ' + moment(poets[i]['birth'].value).format('Do MMMM YYYY') + ' (' + moment(poets[i]['birth'].value).from() + ').';
+      poetPlace.textContent = 'Geburtsort: ' + poets[i]['placeLabel'].value + '.';
+      if (poets[i]['death']) {
+        poetDeath.textContent = 'Todestag: ' + moment(poets[i]['death'].value).format('Do MMMM YYYY') + '.';
+      }
 
-    poetName.textContent = poets[i]['subjLabel'].value;
-    
-    if (poets[i]['img']) {
-      poetImg.src = poets[i]['img'].value;
+      myPoet.appendChild(poetName);
+      myPoet.appendChild(poetImg);
+      myPoet.appendChild(poetBirth);
+      myPoet.appendChild(poetPlace);
+      myPoet.appendChild(poetDeath);
+
+      section.appendChild(myPoet);
     }
-    else {
-      poetImg.src = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png";
-    }
-    poetBirth.textContent = 'Geburtstag: ' + moment(poets[i]['birth'].value).format('Do MMMM YYYY') + ' (' + moment(poets[i]['birth'].value).from() + ').';
-    poetPlace.textContent = 'Geburtsort: ' + poets[i]['placeLabel'].value + '.';
-    if (poets[i]['death']) {
-      poetDeath.textContent = 'Todestag: ' + moment(poets[i]['death'].value).format('Do MMMM YYYY') + '.';
-    }
-
-    myPoet.appendChild(poetName);
-    myPoet.appendChild(poetImg);
-    myPoet.appendChild(poetBirth);
-    myPoet.appendChild(poetPlace);
-    myPoet.appendChild(poetDeath);
-
-    section.appendChild(myPoet);
+  }
+  else {
+    const noPoet = document.createElement('div');
+    noPoet.className = 'col-md-12';
+    const noBirthday = document.createElement('p');
+    noBirthday.className = 'noBirthday';
+    noBirthday.textContent = 'Heute scheint keine/r der DichterInnen Geburtstag zu haben! 🤔';
+    noPoet.appendChild(noBirthday);
+    section.appendChild(noPoet);
   }
 }

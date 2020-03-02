@@ -44,6 +44,11 @@
     transition: box-shadow 0.5s, transform 0.5s;
   }
 
+  .noBirthday {
+    padding: 2em 0 2em 0;
+    font-size: 20px;
+  }
+
   footer {
     padding: 1em 0 1em 0;
     font-size: smaller;
